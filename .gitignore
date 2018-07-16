@@ -1,9 +1,6 @@
 #Node Modules
 node_modules/
 
-#Hide Configs
-config.js
-
 #remove package-lock json
 package-lock.json
 
