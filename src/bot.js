@@ -11,7 +11,7 @@ var retweet = function () {
     }
 }
 
-Twitter.get('search/tweets', params, (err, data) => {
+Twitter.get('search/tweets', {q: '#NowPlaying, #Chronology', result_type:'recent'}, (err, data) => {
     if (!err) {
         var retweet_id = data.statuses[0].id_str;
         Twitter.post('statuses/retweet/:id', {
@@ -22,10 +22,17 @@ Twitter.get('search/tweets', params, (err, data) => {
             }
             // Log whatever error could be caused.
             if (err) {
-                console.log(`Error: ${err.message} of type ${err.name}`);
+                console.log(`Error:[${err.name}] - ${err.message}`);
             }
         });
     } else {
         console.log(`Unable to search tweet with error: ${err.message}\n Error type ${err.name}`);
     }
-})
+});
+// Twitter.post('statuses/update', { status: "I'm posting a tweet! @Canned_Ear" }, (err, data, response) => {
+//     console.log(data);
+    
+//     if(err) {
+//       console.log("There was a problem tweeting the message.", err);
+//     }
+//   });
