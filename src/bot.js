@@ -4,13 +4,6 @@ const config = require('./config');
 var Twit = require('twit');
 var Twitter = new Twit(config);
 
-var retweet = function () {
-    var params = {
-        q: '#wapikazi',
-        result_type: 'recent',
-    }
-}
-
 Twitter.get('search/tweets', {q: '#NowPlaying, #Chronology', result_type:'recent'}, (err, data) => {
     if (!err) {
         var retweet_id = data.statuses[0].id_str;
