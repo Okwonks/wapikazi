@@ -6,5 +6,5 @@ package-lock.json
 
 #vscode
 .vscode/
-
+tweets.json
 .env
