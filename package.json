@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^6.0.0",
+    "moment": "^2.22.2",
     "twit": "^2.2.11",
     "unique-random-array": "^1.0.1"
   }
