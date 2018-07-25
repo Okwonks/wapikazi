@@ -9,7 +9,7 @@ const bot = new Twit(config);
 
 const queryString = unique(param.queryString.split(','));
 
-function retweet() {
+function tweet() {
     const query = `${queryString()} -RT`;
 
     bot.get('search/tweets', {
@@ -50,4 +50,4 @@ function retweet() {
     });
 }
 
-module.exports = retweet;
+module.exports = tweet;
