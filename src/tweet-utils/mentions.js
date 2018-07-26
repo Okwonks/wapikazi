@@ -7,7 +7,6 @@ const tweetEvent = (tweetObj) => {
     var retweetTo;
     var text;
     var from;
-    console.log(tweetObj.text)
     if (tweetObj) {
         retweetTo = tweetObj.in_reply_to_screen_name;
         text = tweetObj.text;

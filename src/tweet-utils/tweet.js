@@ -1,5 +1,6 @@
 const Twit = require('twit');
 const unique = require('unique-random-array');
+const moment = require('moment');
 const config = require('../config');
 const mentions = require('./mentions');
 
@@ -8,8 +9,8 @@ const bot = new Twit(config);
 
 const queryString = unique(param.queryString.split(','));
 
-function retweet() {
-    const query = queryString();
+function tweet() {
+    const query = `${queryString()} -RT`;
 
     bot.get('search/tweets', {
         q: query,
@@ -17,28 +18,29 @@ function retweet() {
         result_type: param.resultType
     }, (err, data) => {
         if (!err) {
-            console.log(data.statuses.length);
-            
             if (data.statuses.length > 0) {
                 let tweet = data.statuses[0];
                 let retweet_id = tweet.id_str;
                 let mentioned = mentions(tweet);
-                let retweetBody = `#ikokazi via @${tweet.user.screen_name}`
-                
+                let createdAt = Date.parse(tweet.created_at);
+                let timeStamp = moment(createdAt).format('h:mm a');
+                let retweetBody = `${timeStamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
+                // Check to see if the bot is mentioned
                 if (mentioned) {
-                    bot.post('status/retweet/:id', {
+                    console.log('starting tweet ...');
+                    bot.post('statuses/update', {
                         id: retweet_id,
                         status: retweetBody
                     }, (err, res) => {
                         if (res) {
-                            console.log(`retweeted ${retweet_id}`);
+                            console.log(`tweeted ${retweet_id}`);
                         }
                         if (!err) {
-                            console.log(`Retweeted: ${data.statuses[0].text}\nBy: @${data.statuses[0].user.screen_name}`);
+                            console.log(`tweeted: ${tweet.text}\nBy: @${tweet.user.screen_name}`);
                         }
                     });
                 } else {
-                    console.log('Nothing to retweet ...');
+                    console.log('Nothing to tweet ...');
                 }
             }
         } else {
@@ -48,4 +50,4 @@ function retweet() {
     });
 }
 
-module.exports = retweet;
+module.exports = tweet;
