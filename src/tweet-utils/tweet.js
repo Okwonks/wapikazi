@@ -3,6 +3,7 @@ const unique = require('unique-random-array');
 const moment = require('moment');
 const config = require('../config');
 const mentions = require('./mentions');
+const retweet = require('./retweet');
 
 const param = require('../query-config');
 const bot = new Twit(config);
@@ -40,7 +41,8 @@ function tweet() {
                         }
                     });
                 } else {
-                    console.log('Nothing to tweet ...');
+                    console.log(`retweeting @${tweet.user.screen_name}'s tweet`);
+                    retweet(retweet_id);
                 }
             }
         } else {
