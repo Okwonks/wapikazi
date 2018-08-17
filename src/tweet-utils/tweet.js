@@ -20,7 +20,7 @@ function tweet() {
     }, (err, data) => {
         if (!err) {
             if (data.statuses.length > 0) {
-                const randomPos = Math.floor(Math.random() * data.status.length);
+                const randomPos = Math.floor(Math.random() * data.statuses.length);
                 let tweet = data.statuses[randomPos];
                 let retweet_id = tweet.id_str;
                 let mentioned = mentions(tweet);
