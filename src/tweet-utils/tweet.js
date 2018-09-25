@@ -20,12 +20,13 @@ function tweet() {
     }, (err, data) => {
         if (!err) {
             if (data.statuses.length > 0) {
-                let tweet = data.statuses[0];
+                const randomPos = Math.floor(Math.random() * data.statuses.length);
+                let tweet = data.statuses[randomPos];
                 let retweet_id = tweet.id_str;
                 let mentioned = mentions(tweet);
                 let createdAt = Date.parse(tweet.created_at);
-                let timeStamp = moment(createdAt).format('h:mm a');
-                let retweetBody = `${timeStamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
+                let timestamp = moment(createdAt).format('hh:mm a');
+                let retweetBody = `${timestamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
                 // Check to see if the bot is mentioned
                 if (mentioned) {
                     console.log('starting tweet ...');
@@ -41,6 +42,7 @@ function tweet() {
                         }
                     });
                 } else {
+                    // If the bot isn't mentioned retweet the tweet
                     console.log(`retweeting @${tweet.user.screen_name}'s tweet`);
                     retweet(retweet_id);
                 }
