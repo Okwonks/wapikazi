@@ -25,8 +25,8 @@ function tweet() {
                 let retweet_id = tweet.id_str;
                 let mentioned = mentions(tweet);
                 let createdAt = Date.parse(tweet.created_at);
-                let timeStamp = moment(createdAt).format('h:mm a');
-                let retweetBody = `${timeStamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
+                let timestamp = moment(createdAt).format('hh:mm a');
+                let retweetBody = `${timestamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
                 // Check to see if the bot is mentioned
                 if (mentioned) {
                     console.log('starting tweet ...');
