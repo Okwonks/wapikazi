@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "bot.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,5 +11,12 @@
     "moment": "^2.22.2",
     "twit": "^2.2.11",
     "unique-random-array": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
