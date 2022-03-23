@@ -1,6 +1,7 @@
 const fs = require('fs');
 
-const tweetEvent = (tweetObj) => {
+module.exports = tweetObj => {
+  // FIXME why is this here?
   const json = JSON.stringify(tweetObj, null, 2);
   fs.writeFile('tweets.json', json);
 
@@ -14,9 +15,6 @@ const tweetEvent = (tweetObj) => {
   console.log(`To: ${retweetTo} from ${from}`);
   console.log(`Tweet: ${text}`);
 
-  if (retweetTo == 'wapikazi') {
-    return true;
-  }
+  return retweetTo === 'wapikazi';
 };
 
-module.exports = tweetEvent;

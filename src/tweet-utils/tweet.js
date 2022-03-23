@@ -10,7 +10,7 @@ const bot = new Twit(config);
 
 const queryString = unique(param.queryString.split(','));
 
-function tweet() {
+module.exports = function tweet() {
   const query = `${queryString()} -RT`;
 
   bot.get('search/tweets', {
@@ -21,23 +21,22 @@ function tweet() {
     if (!err) {
       if (data.statuses.length > 0) {
         const randomPos = Math.floor(Math.random() * data.statuses.length);
-        let tweet = data.statuses[randomPos];
-        let retweet_id = tweet.id_str;
-        let mentioned = mentions(tweet);
-        let createdAt = Date.parse(tweet.created_at);
-        let timestamp = moment(createdAt).format('hh:mm a');
-        let retweetBody = `${timestamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
+        const tweet = data.statuses[randomPos];
+        const retweet_id = tweet.id_str;
+        const mentioned = mentions(tweet);
+        const createdAt = Date.parse(tweet.created_at);
+        const timestamp = moment(createdAt).format('hh:mm a');
+        const retweetBody = `${timestamp} #ikokazi via @${tweet.user.screen_name} ${tweet.text}`;
+
         // Check to see if the bot is mentioned
         if (mentioned) {
           console.log('starting tweet ...');
           bot.post('statuses/update', {
             id: retweet_id,
             status: retweetBody
-          }, (err, res) => {
-            if (res) {
+          }, (error, res) => {
+            if (res && !error) {
               console.log(`tweeted ${retweet_id}`);
-            }
-            if (!err) {
               console.log(`tweeted: ${tweet.text}\nBy: @${tweet.user.screen_name}`);
             }
           });
@@ -50,8 +49,6 @@ function tweet() {
     } else {
       console.log(`${err.name}: ${err.message}`);
     }
-
   });
-}
+};
 
-module.exports = tweet;

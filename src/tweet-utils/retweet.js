@@ -3,7 +3,7 @@ const config = require('../config');
 
 const bot = new Twit(config);
 
-function retweet(retweetId) {
+module.exports = function retweet(retweetId) {
   bot.post('statuses/retweet/:id', {
     id: retweetId
   }, (err, res) => { // eslint-disable-line no-unused-vars
@@ -11,6 +11,5 @@ function retweet(retweetId) {
       console.log(`cannot retweet ${retweetId}`);
     }
   });
-}
+};
 
-module.exports = retweet;
