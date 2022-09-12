@@ -8,7 +8,7 @@ module.exports = function retweet(retweetId) {
     id: retweetId
   }, (err, res) => { // eslint-disable-line no-unused-vars
     if (err) {
-      console.log(`cannot retweet ${retweetId}`);
+      console.error(`cannot retweet ${retweetId}:`, err);
     }
   });
 };
